@@ -1,0 +1,63 @@
+/* Form.css */
+
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 100px auto;
+    position: relative;
+    z-index: 1; /* Add this line */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+  }
+  
+  input,
+  select {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  /* Style the dropdown for topics */
+  select[multiple] {
+    height: auto; /* Allow the dropdown to adjust its height based on selected options */
+  }
+  
+  select[multiple] option {
+    padding: 10px;
+    background-color: #fff; /* Set background color for unselected options */
+  }
+  
+  /* Style the selected options */
+  select[multiple] option:checked {
+    background-color: #3498db !important;
+    color: #fff;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
