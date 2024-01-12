@@ -75,9 +75,9 @@ const Intro = () => {
         }}
       />
       <div className="intro-content">
-        <h1 style={{ color: '#ecf0f1' }}>Welcome to NewsNest</h1>
+        <h1 style={{ color: '#ecf0f1' }}>Welcome to News Nest</h1>
         <p style={{ color: '#bdc3c7' }}>
-          Stay Informed, Stay Updated. NewsNest delivers the latest news tailored to your interests.
+          Stay Informed, Stay Updated. News Nest delivers the latest news tailored to your interests.
         </p>
         {/* <div className="animation-container">
           <div className="icon-container">

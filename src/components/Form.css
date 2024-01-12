@@ -1,7 +1,7 @@
 /* Form.css */
 
 form {
-    background-color: #ffffff;
+    background-color: #2c3e50;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -13,22 +13,26 @@ form {
   
   label {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     font-size: 1.2rem;
+    color: #fff;
   }
   
   input,
   select {
+    margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px;
-    width: 100%;
+    width: calc(100% - 20px); /* Set width for input boxes */
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
+    color: black;
   }
   
   /* Style the dropdown for topics */
   select[multiple] {
+    
     height: auto; /* Allow the dropdown to adjust its height based on selected options */
   }
   
@@ -36,11 +40,18 @@ form {
     padding: 10px;
     background-color: #fff; /* Set background color for unselected options */
   }
+
+
+  .custom-select .Select-option,
+  .custom-select .Select-value-label,
+  .custom-select .Select-menu {
+    color: black !important;
+  }
+  
   
   /* Style the selected options */
   select[multiple] option:checked {
     background-color: #3498db !important;
-    color: #fff;
   }
   
   button {
@@ -60,4 +71,92 @@ form {
   button:hover {
     background-color: #45a049;
   }
+
+  .article-carousel {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .article-link {
+    text-decoration: white;
+  }
   
+  .article-link:hover .article-image {
+    transform: scale(1.1); /* Make the image larger on hover */
+  }
+  
+  
+  .article-card {
+    flex: 1 1 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    color: white;
+    background-color: grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 40px;
+  }
+/* 
+  .article-image-container {
+    width: 100%; /* Set the width of the container to 100% */
+    /* overflow: hidden; */
+  /* } */
+  
+  /* .article-image {
+    width: 100%; /* Set the width of the image to 100% */
+    /* height: auto; Allow the image to adjust its height based on its width */
+    /* object-fit: contain; Ensure the entire image is visible without cropping */
+    /* border-radius: 5px; Add border-radius for rounded corners (optional) */
+    /* transition: transform 0.3s ease; */ 
+  /* } */ 
+
+  .article-image-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+    padding-top: 30px; /* Add padding at the top */
+  }
+  
+  .article-image {
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+  }
+
+  .article-details {
+    padding: 15px;
+  }
+
+  .preview-button {
+    background-color: #3498db; /* Bluish gray color */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto; /* Center the button */
+    display: block; /* Ensure it takes up full width */
+  }
+  
+  .preview-button:hover {
+    background-color: #2980b9; /* Darker shade on hover */
+  }
+  
+ h2 {
+    font-size: 2rem; /* Adjust the font size as needed */
+    color: white; /* Set the color to white */
+    margin-bottom: 20px; /* Add some space between the title and articles */
+    text-align: center;
+  }

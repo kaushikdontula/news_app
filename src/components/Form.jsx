@@ -3,6 +3,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import './Form.css';
 import moment from 'moment';
+import ArticleCarousel from './articleCarousel'; // Correct the import path
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ const Form = () => {
     topics: [],
     frequency: 'daily',
   });
+
+  const [articles, setArticles] = useState([]); // Separate state for articles
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +30,57 @@ const Form = () => {
       topics: selectedTopics.map((topic) => topic.value),
     }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const apiKey = '20252e8897cc40cb8045741bc9ecfd92';
+    const { topics, frequency } = formData;
+
+    try {
+      let fromDate;
+
+      if (frequency === 'daily') {
+        fromDate = moment().subtract(1, 'days');
+      } else if (frequency === 'weekly') {
+        fromDate = moment().subtract(7, 'days');
+      } else if (frequency === 'monthly') {
+        fromDate = moment().subtract(1, 'months');
+      }
+
+      const toDate = moment();
+
+      const newsPromises = topics.map(async (topic) => {
+        const response = await axios.get('https://newsapi.org/v2/everything', {
+          headers: {
+            'X-Api-Key': apiKey,
+          },
+          params: {
+            q: topic,
+            from: fromDate.format('YYYY-MM-DD'),
+            to: toDate.format('YYYY-MM-DD'),
+          },
+        });
+
+        const sortedArticles = response.data.articles.sort(
+          (a, b) => b.popularity - a.popularity
+        );
+
+        const top10Articles = sortedArticles.slice(0, 10);
+
+        return { topic, articles: top10Articles };
+      });
+
+      const newsResults = await Promise.all(newsPromises);
+
+      console.log('Response from News API:', newsResults);
+
+      setArticles(newsResults.flatMap((result) => result.articles));
+    } catch (error) {
+      console.error('Error fetching news:', error);
+    }
+  };
+  
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -61,56 +115,6 @@ const Form = () => {
   //     console.error('Error fetching news:', error);
   //   }
   // };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    const apiKey = '20252e8897cc40cb8045741bc9ecfd92'; // Replace with your News API key
-    const { topics, frequency } = formData;
-  
-    try {
-      // Define date range based on frequency
-      let fromDate;
-  
-      if (frequency === 'daily') {
-        fromDate = moment().subtract(1, 'days');
-      } else if (frequency === 'weekly') {
-        fromDate = moment().subtract(7, 'days');
-      } else if (frequency === 'monthly') {
-        fromDate = moment().subtract(1, 'months');
-      }
-  
-      const toDate = moment(); // Current date
-  
-      // Fetch all news for every selected topic within the specified timeframe
-      const newsPromises = topics.map(async (topic) => {
-        const response = await axios.get('https://newsapi.org/v2/everything', {
-          headers: {
-            'X-Api-Key': apiKey,
-          },
-          params: {
-            q: topic,
-            from: fromDate.format('YYYY-MM-DD'),
-            to: toDate.format('YYYY-MM-DD'),
-          },
-        });
-  
-        return { topic, articles: response.data.articles };
-      });
-  
-      // Wait for all news promises to resolve
-      const newsResults = await Promise.all(newsPromises);
-  
-      // Log the response data to see what you're getting
-      console.log('Response from News API:', newsResults);
-  
-      // Implement logic to send news to the user (e.g., email, text)
-      // You might need a server-side component to send emails or texts
-      console.log('News sent to the user:', formData);
-    } catch (error) {
-      console.error('Error fetching news:', error);
-    }
-  };
   
 
   const topicsOptions = [
@@ -187,7 +191,9 @@ const Form = () => {
       </label>
       <br />
 
-      <button type="submit">Submit</button>
+      <button type="submit"  className="preview-button" >Preview Articles</button>
+
+      <ArticleCarousel articles={articles} selectedTopics={formData.topics} />
     </form>
   );
 };
